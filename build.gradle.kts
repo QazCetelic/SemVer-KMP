@@ -18,7 +18,7 @@ kotlin {
             useJUnit()
         }
     }
-    js(LEGACY) {
+    js(BOTH) {
         browser {
             testTask {
                 useKarma {
