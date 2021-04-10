@@ -1,10 +1,27 @@
-class SemVer(
-    val major: Int = 0,
-    val minor: Int = 0,
-    val patch: Int = 0,
-    val preRelease: String? = null,
-    val buildMetadata: String? = null,
-) : Comparable<SemVer> {
+class SemVer : Comparable<SemVer> {
+    val major: Int
+    val minor: Int
+    val patch: Int
+    val preRelease: String?
+    val buildMetadata: String?
+
+    constructor(major: Int = 0, minor: Int = 0, patch: Int = 0, preRelease: String? = null, buildMetadata: String? = null) {
+        this.major          = major
+        this.minor          = minor
+        this.patch          = patch
+        this.preRelease     = preRelease
+        this.buildMetadata  = buildMetadata
+    }
+
+    constructor(string: String) {
+        val semVer  = string.toSemVer()
+        major               = semVer.major
+        minor               = semVer.minor
+        patch               = semVer.patch
+        preRelease          = semVer.preRelease
+        buildMetadata       = semVer.buildMetadata
+    }
+
     companion object {
         /**
          * Allows creating a SemVer class with a string as parameter

@@ -1,7 +1,7 @@
 fun String.toSemVer(): SemVer {
     // Regex from https://semver.org/
-    val validSemVerRegex = """^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?${'$'}"""
-    val result = Regex(validSemVerRegex).matchEntire(this) ?: throw IllegalArgumentException("Invalid version string [$this]")
+    val semVerRegex = Regex("""^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?${'$'}""")
+    val result = semVerRegex.matchEntire(this) ?: throw IllegalArgumentException("Invalid version string [$this]")
 
     fun takeIntOrZero(index: Int) = if (result.groupValues[index].isEmpty()) 0 else result.groupValues[index].toInt()
     fun takeStringOrNull(index: Int) = if (result.groupValues[index].isEmpty()) null else result.groupValues[index]
