@@ -1,3 +1,5 @@
+package kmp_semver
+
 data class SemVerRange(val start: SemVer, val end: SemVer)
 
 // Creation function

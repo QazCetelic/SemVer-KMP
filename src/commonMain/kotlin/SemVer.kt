@@ -1,3 +1,5 @@
+package kmp_semver
+
 class SemVer : Comparable<SemVer> {
     val major: Int
     val minor: Int
@@ -14,7 +16,7 @@ class SemVer : Comparable<SemVer> {
     }
 
     constructor(string: String) {
-        val semVer  = string.toSemVer()
+        val semVer  = string.toSemVer() ?: throw Exception("Invalid SemVer string")
         major               = semVer.major
         minor               = semVer.minor
         patch               = semVer.patch
@@ -90,7 +92,7 @@ class SemVer : Comparable<SemVer> {
 
     override fun toString(): String = buildString {
         append("$major.$minor.$patch")
-        if (preRelease != null) append("-$preRelease")
-        if (buildMetadata != null) append("+$buildMetadata")
+        if (!preRelease.isNullOrEmpty()) append("-$preRelease")
+        if (!buildMetadata.isNullOrBlank()) append("+$buildMetadata")
     }
 }

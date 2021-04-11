@@ -1,15 +1,27 @@
-fun String.toSemVer(): SemVer {
-    // Regex from https://semver.org/
-    val semVerRegex = Regex("""^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?${'$'}""")
-    val result = semVerRegex.matchEntire(this) ?: throw IllegalArgumentException("Invalid version string [$this]")
+package kmp_semver
 
-    fun takeIntOrZero(index: Int) = if (result.groupValues[index].isEmpty()) 0 else result.groupValues[index].toInt()
-    fun takeStringOrNull(index: Int) = if (result.groupValues[index].isEmpty()) null else result.groupValues[index]
+// Regex from https://semver.org/
+private val semVerRegex = Regex("""^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?${'$'}""")
+
+fun String.toSemVer(): SemVer? {
+    val matches = semVerRegex.matchEntire(this)?.groupValues ?: return null
     return SemVer(
-        major = takeIntOrZero(1),
-        minor = takeIntOrZero(2),
-        patch = takeIntOrZero(3),
-        preRelease = takeStringOrNull(4),
-        buildMetadata = takeStringOrNull(5),
+        major = matches[1].toIntOrNull() ?: return null,
+        minor = matches[2].toIntOrNull() ?: return null,
+        patch = matches[3].toIntOrNull() ?: 0,
+        preRelease = matches[4].let {
+            // Sets it to null if the string is empty
+            if (it.isEmpty()) null
+            else it
+        },
+        buildMetadata = matches[5].let {
+            // Sets it to null if the string is empty
+            if (it.isEmpty()) null
+            else it
+        },
     )
+}
+
+fun String.isSemVer(): Boolean {
+    return semVerRegex.matchEntire(this) != null
 }

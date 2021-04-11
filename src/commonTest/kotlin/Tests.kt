@@ -1,16 +1,21 @@
+package kmp_semver
+
 import kotlin.test.Test
+import kotlin.test.assertFails
 import kotlin.test.assertTrue
 
 class Tests {
     @Test
     fun semver() {
+        val complicatedSemVer = SemVer("5.21.3-Alpha+aes163")
+        assertTrue { complicatedSemVer.isPreRelease }
+
         val semver = SemVer("1.2.3")
         assertTrue { semver.major == 1 }
         assertTrue { semver.minor == 2 }
         assertTrue { semver.patch == 3 }
 
-        val complicatedSemVer = SemVer("5.21.3-Alpha")
-        assertTrue { complicatedSemVer.isPreRelease }
+        assertFails { SemVer("012.123.122") }
     }
 
     @Test
