@@ -16,7 +16,7 @@ class SemVer : Comparable<SemVer> {
     }
 
     constructor(string: String) {
-        val semVer  = string.toSemVer() ?: throw Exception("Invalid SemVer string")
+        val semVer  = string.toSemVerOrNull() ?: throw Exception("Invalid SemVer string")
         major               = semVer.major
         minor               = semVer.minor
         patch               = semVer.patch
@@ -28,7 +28,7 @@ class SemVer : Comparable<SemVer> {
         /**
          * Allows creating a SemVer class with a string as parameter
          */
-        operator fun invoke(string: String) = string.toSemVer()
+        operator fun invoke(string: String) = string.toSemVerOrNull()
     }
 
     override fun compareTo(other: SemVer): Int {

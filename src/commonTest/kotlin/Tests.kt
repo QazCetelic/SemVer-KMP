@@ -32,5 +32,7 @@ class Tests {
 
         val smallerSemVerRange = SemVer("1.5.0")..SemVer("1.6.0")
         assertTrue { smallerSemVerRange in semVerRange }
+
+        println(smallerSemVerRange)
     }
 }

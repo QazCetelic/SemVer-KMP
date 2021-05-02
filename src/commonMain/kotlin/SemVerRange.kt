@@ -1,6 +1,8 @@
 package kmp_semver
 
-data class SemVerRange(val start: SemVer, val end: SemVer)
+data class SemVerRange(val start: SemVer, val end: SemVer) {
+    override fun toString() = "$start..$end"
+}
 
 // Creation function
 operator fun SemVer.rangeTo(endSemVer: SemVer) = SemVerRange(this, endSemVer)

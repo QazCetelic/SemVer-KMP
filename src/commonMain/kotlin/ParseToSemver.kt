@@ -5,7 +5,7 @@ package kmp_semver
 private val semVerNum = """0|[1-9]\d*"""
 private val semVerRegex = Regex("""^($semVerNum)\.($semVerNum)(?:\.($semVerNum))?(?:-((?:$semVerNum|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:$semVerNum|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?${'$'}""")
 
-fun String.toSemVer(patchRequired: Boolean = false): SemVer? {
+fun String.toSemVerOrNull(patchRequired: Boolean = false): SemVer? {
     val matches = semVerRegex.matchEntire(this)?.groupValues ?: return null
     return SemVer(
         major = matches[1].toIntOrNull() ?: return null,
