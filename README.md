@@ -2,7 +2,7 @@
 I needed a SemVer library for a Kotlin project but wanted something different than the other ones already out there and because almost all of were JVM only or didn't target all platforms.
 
 Example
-```
+```kotlin
 val semver = SemVer("1.0.0")
 val semverRange = Semver("0.5.0")..Semver("2.0.0")
 
