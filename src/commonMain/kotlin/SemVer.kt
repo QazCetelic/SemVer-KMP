@@ -24,13 +24,6 @@ class SemVer : Comparable<SemVer> {
         buildMetadata       = semVer.buildMetadata
     }
 
-    companion object {
-        /**
-         * Allows creating a SemVer class with a string as parameter
-         */
-        operator fun invoke(string: String) = string.toSemVerOrNull()
-    }
-
     override fun compareTo(other: SemVer): Int {
         when {
             major > other.major -> return 1
