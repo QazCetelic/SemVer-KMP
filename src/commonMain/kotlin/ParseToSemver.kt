@@ -13,13 +13,11 @@ fun String.toSemVerOrNull(patchRequired: Boolean = false): SemVer? {
         patch = matches[3].toIntOrNull() ?: if (patchRequired) return null else 0,
         preRelease = matches[4].let {
             // Sets it to null if the string is empty
-            if (it.isEmpty()) null
-            else it
+            it.ifEmpty { null }
         },
         buildMetadata = matches[5].let {
             // Sets it to null if the string is empty
-            if (it.isEmpty()) null
-            else it
+            it.ifEmpty { null }
         },
     )
 }
