@@ -1,13 +1,14 @@
-# SemVer-KMP
-I needed a SemVer library for a Kotlin project but wanted something different than the other ones already out there and because almost all of were JVM only or didn't target all platforms.
+# Semantic Versioning Library for Kotlin Multi-Platform
+A Kotlin library for Semantic Versioning with ranges and other features such as specifying if a patch is required. It was made because the existing libraries weren't Kotlin Multiplatform Projects, didn't have ranges and several other features.
 
-Example
 ```kotlin
 val semver = SemVer("1.0.0")
 val semverRange = Semver("0.5.0")..Semver("2.0.0")
 
-println(semver in semverRange) //prints true
-println(SemVer("0.5.0-alpha").isPreRelease) //prints true
+"1.18".toSemVerOrNull(patchRequired = false)
+
+assertTrue { semver in semverRange }
+assertTrue { SemVer("0.5.0-alpha").isPreRelease }
 ```
 
-Credits to [swiftzer's semver](https://github.com/swiftzer/semver) project because I learned how to use SemVer from there
+Credits to [Swiftzer's SemVer library](https://github.com/swiftzer/semver) for inspiring the creation of this project.
