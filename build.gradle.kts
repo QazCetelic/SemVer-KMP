@@ -1,5 +1,6 @@
 plugins {
-    kotlin("multiplatform") version "1.4.32"
+    kotlin("multiplatform") version "1.5.30"
+    id("maven-publish")
 }
 
 group = "me.qaz"
@@ -25,7 +26,7 @@ kotlin {
             }
             testTask {
                 useKarma {
-                    useFirefox()
+                    useFirefoxHeadless()
                 }
             }
         }
@@ -48,19 +49,5 @@ kotlin {
                 implementation(kotlin("test-annotations-common"))
             }
         }
-        val jvmMain by getting
-        val jvmTest by getting {
-            dependencies {
-                implementation(kotlin("test-junit"))
-            }
-        }
-        val jsMain by getting
-        val jsTest by getting {
-            dependencies {
-                implementation(kotlin("test-js"))
-            }
-        }
-        val nativeMain by getting
-        val nativeTest by getting
     }
 }
